@@ -18,7 +18,7 @@ namespace Hospital
             this.pass = pass;
         }
 
-        private bool VerificarUser(string user)
+        public bool VerificarUser(string user)
         {
             if (this.user == user)
                 return true;
@@ -27,7 +27,7 @@ namespace Hospital
 
         }
 
-        private bool VerificarPass(string pass)
+        public bool VerificarPass(string pass)
         {
             if (this.pass == pass)
                 return true;
@@ -35,7 +35,7 @@ namespace Hospital
             return false;
         }
 
-        public void AgregarPaciente(List<Paciente> pacientes, Medico[] medicos)
+        public void AgregarPaciente(ref List<Paciente> pacientes, ref Medico[] medicos)
         {
             string dni, nombre, apellido, direccion;
             int i = 0;
@@ -71,7 +71,7 @@ namespace Hospital
             return -1;
         }
 
-        public void BorrarPaciente(List<Paciente> pacientes)
+        public void BorrarPaciente(ref List<Paciente> pacientes)
         {
             string dni;
             int i;
@@ -93,7 +93,7 @@ namespace Hospital
             Console.WriteLine("Paciente eliminado.");
         }
 
-        public void ModificarPaciente(List<Paciente> pacientes)
+        public void ModificarPaciente(ref List<Paciente> pacientes)
         {
             char opc;
             string dato;

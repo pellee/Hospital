@@ -8,7 +8,7 @@ namespace Hospital
 {
     class Medico : Persona
     {
-        private List<Turno> turnos;
+        private List<Turno> turnos= new List<Turno>();
 
         public string DNI { get => dni; }
         public string Nombre { get => nombre; }
@@ -38,7 +38,7 @@ namespace Hospital
             turnos.Add(turno);
         }
 
-        private void ConsultarTurnos()
+        public void ConsultarTurnos()
         {
             foreach (var t in turnos)
                 Console.WriteLine("1> El paciente " + t.Paciente.Nombre + " tiene turno el dia " + t.FechaHoraTurno.ToShortDateString() + " a las " + t.FechaHoraTurno.ToShortTimeString());

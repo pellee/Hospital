@@ -21,18 +21,7 @@ namespace Hospital
             this.farmacia = farmacia;
         }
 
-        private int BuscarPaciente(string dni)
-        {
-            for (int i = 0; i < pacientes.Count; i++)
-            {
-                if (pacientes[i].Equals(dni))
-                    return i;
-            }
-
-            return -1;
-        }
-
-        public bool IngresoMenuADM()
+        private bool IngresoMenuADM()
         {
             string user, pass;
 
@@ -41,14 +30,14 @@ namespace Hospital
                 user = Console.ReadLine();
                 Console.WriteLine("Ingrese pass: ");
                 pass = Console.ReadLine();
-            } while (!admin.VerificarUser(user) || !VerificarPass(pass));
+            } while (!admin.VerificarUser(user) || !admin.VerificarPass(pass));
 
             Console.WriteLine();
 
             return true;
         }
 
-        public void MenuADM()
+        private void MenuADM()
         {
             char opc;
 
@@ -57,17 +46,22 @@ namespace Hospital
                 opc = char.Parse(Console.ReadLine());
 
                 if (opc == '1')
-                    AgregarPaciente(pacientes, medicos);
+                    admin.AgregarPaciente(ref pacientes, ref medicos);
 
                 if (opc == '2')
-                    BorrarPaciente(pacientes);
+                    admin.BorrarPaciente(ref pacientes);
 
                 if (opc == '3')
-                    ModificarPaciente(pacientes);
+                    admin.ModificarPaciente(ref pacientes);
 
                 if (opc == '4')
-                    ConsultarPaciente(pacientes);
+                    admin.ConsultarPaciente(pacientes);
             } while (opc != '5');
+        }
+
+        private void MenuMedico()
+        {
+            medicos[0].ConsultarTurnos();
         }
 
         public void MenuHospital()
@@ -89,15 +83,18 @@ namespace Hospital
 
                     if (i == -1)
                         Console.WriteLine("No se encontro el paciente.");
-                    else
+                    else {
                         pacientes[i].SolicitarTurno(true);
+
+                        AsignarTurnos(CrearTurno());
+                    }
+                        
                 }
 
                 if (opc == '2')
                 {
                     // TODO - llamar menu medicos.
-                    
-                    AsignarTurnos(CrearTurnos());
+                    MenuMedico();
                 }
 
                 if (opc == '3')
@@ -106,39 +103,49 @@ namespace Hospital
                 }
 
                 if (opc == '4') {
-                    if (admin.IngresoMenu())
-                        admin.Menu(ref pacientes, ref medicos);
+                    if (IngresoMenuADM())
+                        MenuADM();
 
                 }
             } while (opc != '5');
 
         }
 
-        private void AsignarTurnos(List<Turno> turnos)
+        private int BuscarPaciente(string dni)
+        {
+            for (int i = 0; i < pacientes.Count; i++)
+            {
+                if (pacientes[i].DNI.Equals(dni))
+                    return i;
+            }
+
+            return -1;
+        }
+
+        private void AsignarTurnos(Turno turno)
         {
             foreach (var m in medicos) {
-                foreach (var t in turnos) {
-                    if(m == t.Paciente.Medico)
-                        m.AgregarTurno(t);
-                }
+                if (m == turno.Paciente.Medico)
+                    m.AgregarTurno(turno);
             }
         }
 
-        private List<Turno> CrearTurnos()
+        private Turno CrearTurno()
         {
-            var turnos = new List<Turno>();
+            Turno turno = null;
 
             foreach (var p in pacientes) {
                 DateTime fhora;
+
                 if(p.TurnoSolicitado) {
                     Console.WriteLine("fecha y hora para el turno: ");
                     fhora = DateTime.Parse(Console.ReadLine());
 
-                    turnos.Add(new Turno(p, fhora));
+                    turno = new Turno(p, fhora);
                 }
             }
 
-            return turnos;
+            return turno;
         }
     }
 }
