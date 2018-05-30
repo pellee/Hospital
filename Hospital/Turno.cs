@@ -11,6 +11,9 @@ namespace Hospital
         private Paciente paciente;
         private DateTime fechaHoraTurno;
 
+        public Paciente Paciente { get => paciente; }
+        public DateTime FechaHoraTurno { get => fechaHoraTurno; set => fechaHoraTurno = value; }
+
         public Turno() { }
         public Turno(Paciente paciente, DateTime fechaHoraTurno)
         {

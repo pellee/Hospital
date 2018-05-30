@@ -20,21 +20,21 @@ namespace Hospital
             this.direccion = direccion;
         }
 
-        protected void SetDni (string dni)
+        public void SetDni (string dni)
         {
             this.dni = dni;
         }
 
-        protected void SetNombre (string nombre)
+        public void SetNombre (string nombre)
         {
             this.nombre = nombre;
         }
 
-        protected void SetApellido (string apellido)
+        public void SetApellido (string apellido)
         {
             this.apellido = apellido;
         }
-        protected void SetDireccion (string direccion)
+        public void SetDireccion (string direccion)
         {
             this.direccion = direccion;
         }

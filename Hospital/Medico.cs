@@ -8,6 +8,13 @@ namespace Hospital
 {
     class Medico : Persona
     {
+        private List<Turno> turnos;
+
+        public string DNI { get => dni; }
+        public string Nombre { get => nombre; }
+        public string Apellido { get => apellido; }
+        public string Direccion { get => direccion; }
+
         public Medico() : base() { }
         public Medico(string dni, string nombre, string apellido, string direccion) : base(dni, nombre, apellido, direccion) { }
 
@@ -21,9 +28,20 @@ namespace Hospital
             // TODO - Hacer cosas para agregar cosas al historial.
         }
 
-        public void HacerReceta()
+        public void CrearReceta()
         {
             // TODO - Hacer cosas para crear la receta.
+        }
+
+        public void AgregarTurno(Turno turno)
+        {
+            turnos.Add(turno);
+        }
+
+        private void ConsultarTurnos()
+        {
+            foreach (var t in turnos)
+                Console.WriteLine("1> El paciente " + t.Paciente.Nombre + " tiene turno el dia " + t.FechaHoraTurno.ToShortDateString() + " a las " + t.FechaHoraTurno.ToShortTimeString());
         }
     }
 }
