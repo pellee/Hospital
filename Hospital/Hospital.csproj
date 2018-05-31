@@ -49,6 +49,7 @@
     <Compile Include="Hospital.cs" />
     <Compile Include="Medicamento.cs" />
     <Compile Include="Medico.cs" />
+    <Compile Include="Menu.cs" />
     <Compile Include="Paciente.cs" />
     <Compile Include="Persona.cs" />
     <Compile Include="Program.cs" />
