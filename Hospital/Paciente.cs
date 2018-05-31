@@ -11,6 +11,7 @@ namespace Hospital
         private List<Historial> historialMedico = new List<Historial>();
         private Medico medico;
         private bool turnoSolicitado;
+        private Receta receta;
 
         public string DNI { get => dni; }
         public string Nombre { get => nombre; }
@@ -18,6 +19,8 @@ namespace Hospital
         public string Direccion { get => direccion; }
         public bool TurnoSolicitado { get => turnoSolicitado; }
         public Medico Medico { get => medico; }
+        public Receta Receta { get => receta; set => receta = value; }
+        public List<Historial> Historial { get => historialMedico; set => historialMedico = value; }
 
         public Paciente() : base() { }
 

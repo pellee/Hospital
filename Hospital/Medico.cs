@@ -18,19 +18,38 @@ namespace Hospital
         public Medico() : base() { }
         public Medico(string dni, string nombre, string apellido, string direccion) : base(dni, nombre, apellido, direccion) { }
 
-        public void CrearHistorial()
+        private Historial AgregarAlHistorial()
         {
-            // TODO - Hacer cosas para crear el historial.
-        }
+            string analisis, revision, alergias, enfermedades;
+            char opc;
+            var medicamentos = new List<string>();
 
-        public void AgregarAlHistorial()
-        {
-            // TODO - Hacer cosas para agregar cosas al historial.
-        }
+            Console.WriteLine("Ingrese analisis del paciente: ");
+            analisis = Console.ReadLine();
+            Console.WriteLine("Ingrese revision del paciente: ");
+            revision = Console.ReadLine();
 
-        public void CrearReceta()
-        {
-            // TODO - Hacer cosas para crear la receta.
+            Console.WriteLine("Necesita medicamentos? S/N");
+            opc = char.Parse(Console.ReadLine());
+            opc = char.ToUpper(opc);
+
+            if (opc != 'N') {
+                do {
+                    Console.WriteLine("Ingrese medicamentos: ");
+                    medicamentos.Add(Console.ReadLine());
+
+                    Console.WriteLine("Desea continuar? S/N");
+                    opc = char.Parse(Console.ReadLine());
+                    opc = char.ToUpper(opc);
+                } while (opc!= 'N');
+            }
+
+            Console.WriteLine("Ingrese alergias del paciente: ");
+            alergias = Console.ReadLine();
+            Console.WriteLine("Ingrese enfermedades del paciente: ");
+            enfermedades = Console.ReadLine();
+
+            return new Historial(analisis, revision, medicamentos, alergias, enfermedades, DateTime.Now);
         }
 
         public void AgregarTurno(Turno turno)
@@ -38,10 +57,42 @@ namespace Hospital
             turnos.Add(turno);
         }
 
-        public void ConsultarTurnos()
+        private void BorrarTurno(Turno turno)
         {
+            turnos.Remove(turno);
+        }
+
+        public Paciente AtenderPaciente(Turno turno)
+        {
+            var historial = AgregarAlHistorial();
+            Receta receta = null;
+
+            if (historial.Medicamentos.Count != 0) {
+                receta = new Receta(turno.Paciente, historial.Medicamentos);
+
+                turno.Paciente.Receta = receta;
+                turno.Paciente.Historial.Add(historial);
+            }
+
+            var paciente = turno.Paciente;
+
+            BorrarTurno(turno);
+
+            return paciente;
+                
+        }
+
+        public Turno ConsultarTurnos()
+        {
+            int i = 0;
+
             foreach (var t in turnos)
-                Console.WriteLine("1> El paciente " + t.Paciente.Nombre + " tiene turno el dia " + t.FechaHoraTurno.ToShortDateString() + " a las " + t.FechaHoraTurno.ToShortTimeString());
+                Console.WriteLine(++i + "> El paciente " + t.Paciente.Nombre + " tiene turno el dia " + t.FechaHoraTurno.ToShortDateString() + " a las " + t.FechaHoraTurno.ToShortTimeString());
+
+            Console.WriteLine("Seleccione al paciente que va a atender: ");
+            i = int.Parse(Console.ReadLine());
+
+            return turnos[i];
         }
     }
 }

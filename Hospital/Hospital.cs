@@ -59,9 +59,61 @@ namespace Hospital
             } while (opc != '5');
         }
 
+        private int BuscarMedico(string dni)
+        {
+            for (int i = 0; i < medicos.Length; i++)
+            {
+                if (medicos[i].DNI.Equals(dni))
+                    return i;
+            }
+
+            return -1;
+        }
+
+        private void ActualizarPaciente(Paciente paciente)
+        {
+            for (int i = 0; i < pacientes.Count; i++)
+            {
+                if (pacientes[i].Equals(paciente))
+                    pacientes[i] = paciente;
+            }
+        }
+
         private void MenuMedico()
         {
-            medicos[0].ConsultarTurnos();
+            string dni;
+            int i;
+            Paciente paciente;
+
+            Console.WriteLine("Ingrese dni del medico: ");
+            dni = Console.ReadLine();
+
+            i = BuscarMedico(dni);
+
+            if (i != -1) {
+                paciente = medicos[i].AtenderPaciente(medicos[i].ConsultarTurnos());
+
+                ActualizarPaciente(paciente);
+            }
+        }
+
+        private void MenuPaciente()
+        {
+            string dni;
+            int i;
+
+            Console.WriteLine("Ingrese dni del paciente que quiere solicitar el turno: ");
+            dni = Console.ReadLine();
+
+            i = BuscarPaciente(dni);
+
+            if (i == -1)
+                Console.WriteLine("No se encontro el paciente.");
+            else {
+                pacientes[i].SolicitarTurno(true);
+
+                AsignarTurnos(CrearTurno());
+            }
         }
 
         public void MenuHospital()
@@ -72,30 +124,11 @@ namespace Hospital
                 Console.WriteLine("1> Pacientes\n2> Medicos\n3> Farmacia\n4> Admin\n5> Salir");
                 opc = char.Parse(Console.ReadLine());
 
-                if (opc == '1') {
-                    string dni;
-                    int i;
-
-                    Console.WriteLine("Ingrese dni del paciente que quiere solicitar el turno: ");
-                    dni = Console.ReadLine();
-
-                    i = BuscarPaciente(dni);
-
-                    if (i == -1)
-                        Console.WriteLine("No se encontro el paciente.");
-                    else {
-                        pacientes[i].SolicitarTurno(true);
-
-                        AsignarTurnos(CrearTurno());
-                    }
-                        
-                }
+                if (opc == '1')
+                    MenuPaciente();
 
                 if (opc == '2')
-                {
-                    // TODO - llamar menu medicos.
-                    MenuMedico();
-                }
+                    MenuMedico(); 
 
                 if (opc == '3')
                 {

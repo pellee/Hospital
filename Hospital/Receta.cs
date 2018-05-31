@@ -9,10 +9,10 @@ namespace Hospital
     class Receta
     {
         private Paciente paciente;
-        private List<Medicamento> medicamentos;
+        private List<string> medicamentos;
 
         public Receta() { }
-        public Receta(Paciente paciente, List<Medicamento> medicamentos)
+        public Receta(Paciente paciente, List<string> medicamentos)
         {
             this.paciente = paciente;
             this.medicamentos = medicamentos;

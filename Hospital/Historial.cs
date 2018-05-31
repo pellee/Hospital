@@ -8,11 +8,14 @@ namespace Hospital
 {
     class Historial
     {
-        private string analisis, revision, medicamentos, alergias, enfermedades;
+        private string analisis, revision, alergias, enfermedades;
+        private List<string> medicamentos = new List<string>();
         private DateTime fechaHistorial;
 
+        public List<string> Medicamentos { get => medicamentos; }
+
         public Historial() { }
-        public Historial(string analisis, string revision, string medicamentos, string alergias, string enfermedades, DateTime fechaHistorial)
+        public Historial(string analisis, string revision, List<string> medicamentos, string alergias, string enfermedades, DateTime fechaHistorial)
         {
             this.analisis = analisis;
             this.revision = revision;
