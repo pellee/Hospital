@@ -98,7 +98,9 @@ namespace Hospital
             i = BuscarMedico(dni, medicos);
 
             if (i != -1) {
-                paciente = medicos[i].AtenderPaciente(medicos[i].ConsultarTurnos());
+                var turno = medicos[i].ConsultarTurnos();
+
+                paciente = medicos[i].AtenderPaciente(turno);
             }
 
             return paciente;

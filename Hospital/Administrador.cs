@@ -125,9 +125,8 @@ namespace Hospital
         public void ConsultarPaciente(List<Paciente> pacientes)
         {
             if(pacientes.Count != 0) {
-                foreach (var p in pacientes) {
-                    Console.WriteLine(p.DNI + "   " + p.Nombre + " Es atendido por " + p.Medico.Nombre);
-                }
+                foreach (var p in pacientes)
+                    p.MostrarDatosPaciente();
             }
             else
                 Console.WriteLine("No hay pacientes para mostrar");

@@ -47,7 +47,8 @@ namespace Hospital
                 if (opc == '2') {
                     var paciente = Menu.MenuMedico(ref medicos);
 
-                    ActualizarPaciente(paciente);
+                    if(paciente != null)
+                        ActualizarPaciente(paciente);
                 }
 
                 if (opc == '3')

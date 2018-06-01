@@ -12,6 +12,12 @@ namespace Hospital
         private List<string> medicamentos = new List<string>();
         private DateTime fechaHistorial;
 
+        public string Analisis { get => analisis; }
+        public string Revision { get => revision; }
+        public string Alergias { get => alergias; }
+        public string Enfermedades { get => enfermedades; }
+        public string Fecha { get => fechaHistorial.ToShortDateString(); }
+        public string Hora { get => fechaHistorial.ToShortTimeString(); }
         public List<string> Medicamentos { get => medicamentos; }
 
         public Historial() { }

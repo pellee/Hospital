@@ -67,12 +67,19 @@ namespace Hospital
             var historial = AgregarAlHistorial();
             Receta receta = null;
 
-            if (historial.Medicamentos.Count != 0) {
+            if (historial.Medicamentos.Count != 0)
+            {
                 receta = new Receta(turno.Paciente, historial.Medicamentos);
 
                 turno.Paciente.Receta = receta;
                 turno.Paciente.Historial.Add(historial);
+                turno.Paciente.SolicitarTurno(false);
             }
+            else {
+                turno.Paciente.Historial.Add(historial);
+                turno.Paciente.SolicitarTurno(false);
+            }
+                
 
             var paciente = turno.Paciente;
 
@@ -86,13 +93,20 @@ namespace Hospital
         {
             int i = 0;
 
-            foreach (var t in turnos)
-                Console.WriteLine(++i + "> El paciente " + t.Paciente.Nombre + " tiene turno el dia " + t.FechaHoraTurno.ToShortDateString() + " a las " + t.FechaHoraTurno.ToShortTimeString());
+            if (turnos.Count != 0) {
+                foreach (var t in turnos)
+                    Console.WriteLine(++i + "> El paciente " + t.Paciente.Nombre + " tiene turno el dia " + t.FechaHoraTurno.ToShortDateString() + " a las " + t.FechaHoraTurno.ToShortTimeString());
 
-            Console.WriteLine("Seleccione al paciente que va a atender: ");
-            i = int.Parse(Console.ReadLine());
+                Console.WriteLine("Seleccione al paciente que va a atender: ");
+                i = int.Parse(Console.ReadLine());
 
-            return turnos[i];
+                return turnos[i - 1];
+            }
+            else {
+                Console.WriteLine("No tiene pacientes para atender.");
+
+                return null;
+            }
         }
     }
 }
