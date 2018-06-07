@@ -8,23 +8,42 @@ namespace Hospital
 {
     class Farmacia
     {
-        private Enfermero[] enfermeros;
+        private Enfermero enfermero;
+        private Medicamento[] medicamentos;
+
+        public Enfermero Enfermero { get => enfermero; }
 
         public Farmacia() { }
 
-        public Farmacia(Enfermero[] enfermeros)
+        public Farmacia(Medicamento[] medicamentos, Enfermero enfermero)
         {
-            this.enfermeros = enfermeros;
+            this.medicamentos = medicamentos;
+            this.enfermero = enfermero;
         }
+    
+        public void VenderRemedio(Receta receta)
+        {
+            var remedios = new List<string>();
 
-        public void VenderRemedio()
-        {
-            // TODO - Hacer cosas para vender el remedio.
-        }
-        
-        public void VerStock()
-        {
-            // TODO - Hacer cosas para ver el stock del remedio.
+            foreach (var m in receta.Medicamentos) {
+                foreach (var me in medicamentos) {
+                    if(m == me.Nombre) {
+                        if (me.HayStock())
+                            me.DescontarStock();
+                    }
+                    else {
+                        Console.WriteLine("NO HAY STOCK DE ESE MEDICAMENTO.");
+
+                        remedios.Add(m);
+                    }
+                        
+                }
+            }
+
+            Console.WriteLine("Los siguientes remedios los tiene que comprar en otro lado");
+
+            foreach (var r in remedios)
+                Console.WriteLine(r);
         }
     }
 }

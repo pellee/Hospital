@@ -11,6 +11,12 @@ namespace Hospital
         private string nombre, componentes, uso, efectosSec, precauciones;
         private int stock;
 
+        public string Nombre { get => nombre; }
+        public string Componentes { get => componentes; }
+        public string Uso { get => uso; }
+        public string EfectosSec { get => efectosSec; }
+        public string Precauciones { get => precauciones; }
+
         public Medicamento() { }
         public Medicamento(string nombre, string componentes, string uso, string efectosSec, string precauciones, int stock)
         {
@@ -22,14 +28,17 @@ namespace Hospital
             this.stock = stock;
         }
 
-        private void VerStock()
+        public bool HayStock()
         {
-            // TODO - Hacer cosas para ver el stock.
+            if (stock > 0)
+                return true;
+
+            return false;
         }
 
-        private void DescontarStock()
+        public void DescontarStock()
         {
-            // TODO - Hacer cosas para descontar stock.
+            stock --;
         }
     }
 }

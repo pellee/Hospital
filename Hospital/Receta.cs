@@ -11,6 +11,8 @@ namespace Hospital
         private Paciente paciente;
         private List<string> medicamentos;
 
+        public List<string> Medicamentos { get => medicamentos; }
+
         public Receta() { }
         public Receta(Paciente paciente, List<string> medicamentos)
         {

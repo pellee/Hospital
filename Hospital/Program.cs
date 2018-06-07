@@ -36,7 +36,7 @@ namespace Hospital
                 enfermeros[i] = new Enfermero(dni.ToString(), datos[0, i], datos[1, i], datos[2, i]);
             }
 
-            return new Farmacia(enfermeros);
+            return new Farmacia(/*enfermeros*/);
         }
 
         static Administrador CrearAdmin()
@@ -46,7 +46,7 @@ namespace Hospital
 
         static void Main(string[] args)
         {
-            var hospital = new Hospital(CrearMedicos(), CrearAdmin(), CrearFarmacia());
+            var hospital = new Hospital(CrearMedicos(), CrearAdmin(), new Farmacia());
 
             hospital.MenuHospital();
         }

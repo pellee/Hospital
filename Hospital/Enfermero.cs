@@ -11,9 +11,9 @@ namespace Hospital
         public Enfermero() : base () { }
         public Enfermero(string dni, string nombre, string apellido, string direccion) : base(dni, nombre, apellido, direccion) { }
 
-        public void ConsultarPaciente()
+        public void ConsultarPaciente(Paciente paciente)
         {
-            // TODO - Hacer cosas para consultar el paciente.
+            paciente.MostrarDatosPaciente();
         }
     }
 }

@@ -62,13 +62,27 @@ namespace Hospital
             turnos.Remove(turno);
         }
 
+        private void ConsultarHistorial(Paciente paciente)
+        {
+            paciente.MostarHistorial();
+        }
+
         public Paciente AtenderPaciente(Turno turno)
         {
-            var historial = AgregarAlHistorial();
+            Historial historial = null;
             Receta receta = null;
+            char opc;
 
-            if (historial.Medicamentos.Count != 0)
-            {
+            Console.WriteLine("Desea ver el historial del paciente? ");
+            opc = char.Parse(Console.ReadLine());
+            opc = char.ToUpper(opc);
+
+            if (opc == 'S')
+                ConsultarHistorial(turno.Paciente);
+
+            historial = AgregarAlHistorial();
+
+            if (historial.Medicamentos.Count != 0) {
                 receta = new Receta(turno.Paciente, historial.Medicamentos);
 
                 turno.Paciente.Receta = receta;

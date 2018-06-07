@@ -51,9 +51,8 @@ namespace Hospital
                         ActualizarPaciente(paciente);
                 }
 
-                if (opc == '3')
-                {
-                    // TODO - llamar menu farmacia.
+                if (opc == '3') {
+                    Menu.MenuFarmacia(ref farmacia, ref pacientes);
                 }
 
                 if (opc == '4') {

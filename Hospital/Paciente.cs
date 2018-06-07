@@ -54,5 +54,21 @@ namespace Hospital
                 }
             }
         }
+
+        public void MostarHistorial()
+        {
+            foreach (var h in Historial) {
+                Console.WriteLine("El dia " + h.Fecha + " a las " + h.Hora + " se hizo esta entrada al historial");
+                Console.WriteLine("Analisis: " + h.Analisis + "\nRevision: " + h.Revision + "\nAlergias: " + h.Alergias);
+                Console.WriteLine("Enfermedades: " + h.Enfermedades);
+
+                if (h.Medicamentos.Count != 0) {
+                    Console.WriteLine("Lista de medicamentos: ");
+
+                    foreach (var m in h.Medicamentos)
+                        Console.WriteLine(m);
+                }
+            }
+        }
     }
 }

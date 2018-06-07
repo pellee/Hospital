@@ -56,7 +56,7 @@ namespace Hospital
 
             return -1;
         }
-
+        
         public static void MenuPaciente(ref List<Paciente> pacientes)
         {
             string dni;
@@ -86,8 +86,6 @@ namespace Hospital
 
         public static Paciente MenuMedico(ref Medico[] medicos)
         {
-            // TODO probar que esto funcione
-
             string dni;
             int i;
             Paciente paciente = null;
@@ -104,6 +102,31 @@ namespace Hospital
             }
 
             return paciente;
+        }
+
+        public static void MenuFarmacia(ref Farmacia farmacia, ref List<Paciente> pacientes)
+        {
+            string dni;
+            int i;
+            char opc;
+
+            Console.WriteLine("Ingrese el dni del paciente: ");
+            dni = Console.ReadLine();
+
+            i = BuscarPaciente(dni, pacientes);
+
+            if(i == -1)
+                Console.WriteLine("No se encontro al paciente: ");
+            else {
+                Console.WriteLine("1>Vender Remedios\n2>Ver Paciente");
+                opc = char.Parse(Console.ReadLine());
+
+                if (opc == '1')
+                    farmacia.VenderRemedio(pacientes[i].Receta);
+
+                if (opc == '2')
+                    farmacia.Enfermero.ConsultarPaciente(pacientes[i]);
+            }
         }
 
     }
